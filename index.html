@@ -357,7 +357,7 @@ a{color:#433F80}a:hover{color:#E94E1B}
 </div>
 </div>
 <div style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 24px;">
-<div style="grid-column: span 5; border-radius: 28px; background: linear-gradient(140deg, #2A1E5C 0%, #3F5F98 60%, #3BB8C4 100%); color: #FFFFFF; padding: 40px; display: flex; flex-direction: column; gap: 18px;">
+<div style="grid-column: span 12; max-width: 640px; margin: 0 auto; border-radius: 28px; background: linear-gradient(140deg, #2A1E5C 0%, #3F5F98 60%, #3BB8C4 100%); color: #FFFFFF; padding: 40px; display: flex; flex-direction: column; gap: 18px;">
 <span style="font-family: 'Oswald', sans-serif; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; font-size: 13px; color: #D7F3F6;">Abonnement · gratuit</span>
 <h3 style="margin: 0; font-weight: 800; font-size: 38px; line-height: 1.02; letter-spacing: -0.02em;">Recevez le N°02 avant tout le monde.</h3>
 <p style="margin: 0; font-size: 17px; line-height: 1.55; color: #E4F4F7;">Enfin, avant les autres collègues. C'est gratuit, contrairement aux crédits Higgsfield.</p>
@@ -370,27 +370,6 @@ a{color:#433F80}a:hover{color:#E94E1B}
 <div style="display: flex; align-items: center; gap: 12px;">
 <img src="assets/8d07edb1ce01d283056efc3c78ac2b4a.png" alt="QR code abonnement" style="width: 72px; height: 72px; border-radius: 10px; background: #FFFFFF; padding: 6px; flex-shrink: 0;">
 <span style="font-size: 13px; line-height: 1.4; color: #E4F4F7;">Ou scannez ce QR code pendant la présentation.</span>
-</div>
-</div>
-<div style="grid-column: span 7; border-radius: 28px; background: #FFFFFF; border: 1px solid #E3E2EA; padding: 36px; display: flex; flex-direction: column; gap: 20px;">
-<div style="display: flex; flex-direction: column; gap: 8px;">
-<span style="font-family: 'Oswald', sans-serif; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; font-size: 13px; color: #E94E1B;">Soutenir la rédaction · 100 % facultatif</span>
-<h3 style="margin: 0; font-weight: 800; font-size: 32px; line-height: 1.05; letter-spacing: -0.02em;">Pensez à mes gâteaux au chocolat.</h3>
-<p style="margin: 0; font-size: 15px; line-height: 1.5; color: #5A5970;">Aucun don n’est obligatoire, aucune augmentation n’est promise en échange.</p>
-</div>
-<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px;">
-<button type="button" id="amt-1" class="amt-btn" onclick="selectAmount('1')" style="cursor: pointer; font-family: inherit; background: #F5F5F8; color: #17162E; border: 2px solid #E3E2EA; border-radius: 16px; padding: 16px 12px; display: flex; flex-direction: column; gap: 4px; text-align: center; align-items: center; min-height: 44px;"><span style="font-weight: 900; font-size: 26px; line-height: 1; color: #E94E1B;">1 €</span><span style="font-weight: 700; font-size: 13px;">Le café</span></button>
-<button type="button" id="amt-3" class="amt-btn" onclick="selectAmount('3')" style="cursor: pointer; font-family: inherit; background: #F5F5F8; color: #17162E; border: 2px solid #E3E2EA; border-radius: 16px; padding: 16px 12px; display: flex; flex-direction: column; gap: 4px; text-align: center; align-items: center; min-height: 44px;"><span style="font-weight: 900; font-size: 26px; line-height: 1; color: #E94E1B;">3 €</span><span style="font-weight: 700; font-size: 13px;">Le gâteau</span></button>
-<button type="button" id="amt-10" class="amt-btn" onclick="selectAmount('10')" style="cursor: pointer; font-family: inherit; background: #F5F5F8; color: #17162E; border: 2px solid #E3E2EA; border-radius: 16px; padding: 16px 12px; display: flex; flex-direction: column; gap: 4px; text-align: center; align-items: center; min-height: 44px;"><span style="font-weight: 900; font-size: 26px; line-height: 1; color: #E94E1B;">10 €</span><span style="font-weight: 700; font-size: 13px;">Le GPU</span></button>
-<button type="button" id="amt-libre" class="amt-btn" onclick="selectAmount('libre')" style="cursor: pointer; font-family: inherit; background: #17162E; color: #FFFFFF; border: 2px solid #17162E; border-radius: 16px; padding: 16px 12px; display: flex; flex-direction: column; gap: 4px; text-align: center; align-items: center; min-height: 44px;"><span style="font-weight: 900; font-size: 26px; line-height: 1; color: #FFB08F;">Libre</span><span style="font-weight: 700; font-size: 13px;">Mécène</span></button>
-</div>
-<div style="border-radius: 20px; background: #17162E; color: #FFFFFF; padding: 22px 24px; display: flex; flex-direction: column; gap: 14px;">
-<span style="font-family: 'Oswald', sans-serif; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; font-size: 12px; color: #FFB08F;">Paiement par Wero · depuis votre appli bancaire</span>
-<div style="display: flex; align-items: center; gap: 14px; flex-wrap: wrap;">
-<span style="font-weight: 800; font-size: 26px; letter-spacing: -0.01em; user-select: all;">cyril.hamel@within.fr</span>
-<button type="button" onclick="copyWero()" id="copyBtn" style="border: 0; cursor: pointer; background: #E94E1B; color: #FFFFFF; font-family: inherit; font-weight: 700; font-size: 15px; padding: 10px 16px; border-radius: 999px; min-height: 44px;">Copier l’adresse</button>
-</div>
-<span id="stepHint" style="font-size: 13px; line-height: 1.4; color: #B9B8CC;">Choisissez un montant ci-dessus, puis Wero → envoyer → coller l’adresse ci-dessus.</span>
 </div>
 </div>
 </div>
@@ -409,22 +388,6 @@ a{color:#433F80}a:hover{color:#E94E1B}
 
 <style>
 .nav-pill.active{color:#FFFFFF !important;background:#17162E !important;border-color:#17162E !important}
-.amt-btn.selected{background:#E94E1B !important;border-color:#E94E1B !important;color:#FFFFFF !important}
-.amt-btn.selected span{color:#FFFFFF !important}
-#amt-libre.selected{background:#E94E1B !important;border-color:#E94E1B !important}
-</style>
-<script>
-function copyWero() {
-  var btn = document.getElementById('copyBtn');
-  var done = function () { btn.textContent = 'Copié !'; setTimeout(function(){ btn.textContent = 'Copier l\u2019adresse'; }, 2000); };
-  try { navigator.clipboard.writeText('cyril.hamel@within.fr').then(done, done); } catch (e) { done(); }
-}
-var AMOUNT_LABELS = { '1': '1 €', '3': '3 €', '10': '10 €', 'libre': 'du montant de votre choix' };
-function selectAmount(key) {
-  document.querySelectorAll('.amt-btn').forEach(function (b) { b.classList.remove('selected'); });
-  document.getElementById('amt-' + key).classList.add('selected');
-  document.getElementById('stepHint').textContent = 'Wero → envoyer ' + AMOUNT_LABELS[key] + " → coller l'adresse ci-dessus. C'est tout.";
-}
 (function () {
   var ids = ['visuel', 'technique', 'plugins'];
   var els = ids.map(function (id) { return document.getElementById(id); }).filter(Boolean);
