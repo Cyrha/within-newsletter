@@ -104,17 +104,17 @@ def featured_article(item, sec):
     meta = meta_html(item['meta'])
     sep = '<span style="display:inline-block;width:1px;height:12px;background:#cfcfe0;margin:0 8px;"></span>' if (badge and meta) else ""
     img_cell = (
-        f'<td width="240" valign="top" style="padding:0 20px 0 0;">'
-        f'<a href="{img_url}" style="text-decoration:none;"><img src="{img_url}" width="240" alt="" '
+        f'<td class="stack" width="240" valign="top" style="padding:0 20px 0 0;">'
+        f'<a href="{img_url}" style="text-decoration:none;"><img class="fluid" src="{img_url}" width="240" alt="" '
         f'style="display:block;width:240px;max-width:240px;height:auto;border-radius:14px;border:0;"></a></td>'
         if img_url else ''
     )
     return f'''
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#ffffff;border:2px solid {ACCENT};border-radius:18px;margin-bottom:16px;">
-<tr><td style="padding:18px;">
+<tr><td class="card" style="padding:18px;">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr>
 {img_cell}
-<td valign="top" style="font-family:Outfit,Arial,sans-serif;">
+<td class="stack" valign="top" style="font-family:Outfit,Arial,sans-serif;">
 <div style="margin-bottom:8px;">{badge}{sep}{meta}</div>
 <div style="font-family:Outfit,Arial,sans-serif;font-weight:800;font-size:24px;line-height:1.15;color:{DARK};margin-bottom:6px;">{esc(item['title'])}</div>
 <div style="font-size:15px;line-height:1.5;color:{TEXT};">{esc(item['desc'])}</div>
@@ -133,7 +133,7 @@ def secondary_article(item):
     img_html = (f'<img src="{img_url}" width="100%" alt="" style="display:block;width:100%;height:auto;'
                 f'border-radius:12px;border:0;margin-bottom:12px;">') if img_url else ""
     return f'''
-<td valign="top" width="50%" style="padding:0 8px 16px 0;">
+<td class="stack" valign="top" width="50%" style="padding:0 8px 16px 0;">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#ffffff;border:1px solid {BORDER};border-radius:16px;">
 <tr><td style="padding:14px;font-family:Outfit,Arial,sans-serif;">
 {img_html}
@@ -156,11 +156,11 @@ def ai_act_block(item):
 <div style="font-family:Outfit,Arial,sans-serif;font-weight:700;font-size:20px;color:{DARK};margin:14px 0 8px;">{esc(item['title'])}</div>
 <div style="font-size:15px;line-height:1.5;color:{TEXT};margin-bottom:14px;">{esc(item['desc'])}</div>
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr>
-<td width="33%" style="background:{CREAM};border-radius:12px;padding:12px;"><div style="font-weight:700;font-size:13px;color:#B42318;">2 août 2026</div><div style="font-weight:600;font-size:14px;color:{DARK};">Applicable</div></td>
+<td width="33%" style="background:{CREAM};border-radius:12px;padding:12px;" class="tl"><div style="font-weight:700;font-size:13px;color:#B42318;">2 août 2026</div><div style="font-weight:600;font-size:14px;color:{DARK};">Applicable</div></td>
 <td width="2%"></td>
-<td width="33%" style="background:{ACCENT};border-radius:12px;padding:12px;"><div style="font-weight:700;font-size:13px;color:#ffffff;">9 oct. 2026</div><div style="font-weight:600;font-size:14px;color:#ffffff;">Aujourd'hui</div></td>
+<td width="33%" style="background:{ACCENT};border-radius:12px;padding:12px;" class="tl"><div style="font-weight:700;font-size:13px;color:#ffffff;">9 oct. 2026</div><div style="font-weight:600;font-size:14px;color:#ffffff;">Aujourd'hui</div></td>
 <td width="2%"></td>
-<td width="30%" style="background:{CREAM};border-radius:12px;padding:12px;"><div style="font-weight:700;font-size:13px;color:#B42318;">2 déc. 2026</div><div style="font-weight:600;font-size:14px;color:{DARK};">Marquage</div></td>
+<td width="30%" style="background:{CREAM};border-radius:12px;padding:12px;" class="tl"><div style="font-weight:700;font-size:13px;color:#B42318;">2 déc. 2026</div><div style="font-weight:600;font-size:14px;color:{DARK};">Marquage</div></td>
 </tr></table>
 </td></tr>
 </table>
@@ -182,13 +182,13 @@ def rubrique_section(sec_id):
         pair = rest[i:i+2]
         cells = "".join(secondary_article(it) for it in pair)
         if len(pair) == 1:
-            cells += '<td width="50%"></td>'
+            cells += '<td class="hide" width="50%"></td>'
         secondary_rows += f'<tr>{cells}</tr>'
 
     ai_act_html = ai_act_block(ai_act) if ai_act else ""
 
     return f'''
-<tr><td style="padding:56px 24px 0;">
+<tr><td class="px sec" style="padding:56px 24px 0;">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-bottom:3px solid {color};padding-bottom:14px;margin-bottom:22px;">
 <tr>
 <td width="70" valign="bottom"><span style="font-family:Outfit,Arial,sans-serif;font-weight:800;font-size:56px;color:{color};line-height:0.8;">{num}</span></td>
@@ -212,7 +212,7 @@ SOMMAIRE_CARDS = [
 sommaire_cells = ""
 for num, title, sub, c1, c2 in SOMMAIRE_CARDS:
     sommaire_cells += f'''
-<td width="33%" valign="top" style="padding:0 6px;">
+<td class="stack" width="33%" valign="top" style="padding:0 0 10px 0;">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="{c1}" style="background:{c1};border-radius:16px;">
 <tr><td style="padding:18px;font-family:Outfit,Arial,sans-serif;">
 <div style="font-weight:800;font-size:34px;color:#ffffff;line-height:0.9;">{num}</div>
@@ -250,7 +250,16 @@ EMAIL = f'''<!doctype html>
     .container {{ width:100% !important; }}
     .stack {{ display:block !important; width:100% !important; padding-right:0 !important; padding-bottom:16px !important; }}
     .px {{ padding-left:18px !important; padding-right:18px !important; }}
-    .h1 {{ font-size:46px !important; }}
+    .h1 {{ font-size:42px !important; }}
+    .fluid {{ width:100% !important; max-width:100% !important; }}
+    .tl {{ padding:8px 6px !important; font-size:12px !important; }}
+    .tl div {{ font-size:12px !important; }}
+    .hide {{ display:none !important; }}
+    .card {{ padding:16px !important; }}
+    .pad {{ padding:28px 18px !important; }}
+    .sec {{ padding-top:40px !important; }}
+    .num {{ font-size:44px !important; }}
+    .sec-title {{ font-size:22px !important; }}
   }}
 </style>
 </head>
@@ -268,9 +277,6 @@ EMAIL = f'''<!doctype html>
 </tr></table>
 </td></tr>
 
-<tr><td align="center" bgcolor="{DARK}" style="background:{DARK};padding:8px 24px 14px;font-family:Outfit,Arial,sans-serif;font-size:12px;">
-<a href="{ONLINE_URL}" style="color:#B9B8CC;text-decoration:underline;">Voir la version en ligne ↗</a>
-</td></tr>
 
 <tr><td bgcolor="#ffffff" class="px" style="background:#ffffff;border-bottom:1px solid {BORDER};padding:26px 24px 30px;">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr>
@@ -289,7 +295,7 @@ Private <span style="color:{ACCENT};">Newsletter</span>
 
 <tr><td class="px" style="padding:32px 24px 0;">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#3A2A70" style="background:#3A2A70;border-radius:20px;">
-<tr><td style="padding:32px;font-family:Outfit,Arial,sans-serif;">
+<tr><td class="pad" style="padding:32px;font-family:Outfit,Arial,sans-serif;">
 <div style="font-family:Oswald,Arial,sans-serif;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;font-size:12px;color:#D7F3F6;">À la une</div>
 <div style="font-weight:800;font-size:28px;line-height:1.15;color:#ffffff;margin:10px 0 10px;">L'IA ne génère plus seulement des images : elle transforme nos rushes.</div>
 <div style="font-size:15px;line-height:1.5;color:#E4F4F7;margin-bottom:16px;">14 outils, 2 exemples vidéo chacun. Cliquez sur une vignette pour voir la démo.</div>
@@ -316,7 +322,7 @@ Private <span style="color:{ACCENT};">Newsletter</span>
 </table>
 </td></tr>
 
-<tr><td class="px" style="padding:56px 24px 0;">
+<tr><td class="px sec" style="padding:56px 24px 0;">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-bottom:3px solid {ACCENT};padding-bottom:14px;margin-bottom:22px;">
 <tr>
 <td width="70" valign="bottom"><span style="font-family:Outfit,Arial,sans-serif;font-weight:800;font-size:56px;color:{ACCENT};line-height:0.8;">04</span></td>
@@ -328,14 +334,13 @@ Private <span style="color:{ACCENT};">Newsletter</span>
 </table>
 
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#2A1E5C" style="background:#2A1E5C;border-radius:20px;margin-bottom:16px;">
-<tr><td style="padding:30px;font-family:Outfit,Arial,sans-serif;">
+<tr><td class="pad" style="padding:30px;font-family:Outfit,Arial,sans-serif;">
 <div style="font-family:Oswald,Arial,sans-serif;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;font-size:12px;color:#D7F3F6;">Abonnement · gratuit</div>
 <div style="font-weight:800;font-size:26px;line-height:1.1;color:#ffffff;margin:10px 0;">Recevez le N°02 avant tout le monde.</div>
 <div style="font-size:15px;line-height:1.5;color:#E4F4F7;margin-bottom:16px;">Enfin, avant les autres collègues. C'est gratuit, contrairement aux crédits Higgsfield.</div>
 <table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr><td bgcolor="#ffffff" style="background:#ffffff;border-radius:999px;">
 <a href="{SUBSCRIBE_URL}" style="display:inline-block;padding:15px 26px;text-decoration:none;"><span style="font-family:Outfit,Arial,sans-serif;font-weight:800;font-size:17px;color:{DARK};">Je m'abonne au N°02 →</span></a>
 </td></tr></table>
-<div style="font-family:Outfit,Arial,sans-serif;font-size:12px;line-height:1.4;color:#D7F3F6;margin-top:14px;">Le bouton ne marche pas ? Copiez ce lien : <a href="{SUBSCRIBE_URL}" style="color:#ffffff;">{SUBSCRIBE_URL}</a></div>
 </td></tr>
 </table>
 
@@ -391,10 +396,30 @@ def write(name, text):
     print("ecrit %-11s %7d octets" % (name, len(text.encode("utf-8"))))
 
 
-email = link_images(EMAIL)
+FOOTER_ROW = '<tr><td bgcolor="%s" style="background:%s;padding:36px 24px;margin-top:40px;">' % (DARK, DARK)
+CONTAINER_OPEN = '<table role="presentation" class="container" width="640" cellpadding="0" cellspacing="0" border="0" style="width:640px;max-width:640px;">'
+
+
+def giant_link(h):
+    """The whole mail (everything above the footer) is ONE link to the online newsletter."""
+    assert h.count(FOOTER_ROW) == 1 and h.count(CONTAINER_OPEN) == 1
+    head, foot = h.split(FOOTER_ROW)
+    top, body = head.split(CONTAINER_OPEN)
+    body = re.sub(r'<a href="[^"]*"( style="[^"]*")?>', lambda m: '<span%s>' % (m.group(1) or ''), body)
+    body = body.replace('</a>', '</span>')
+    return (top + CONTAINER_OPEN
+            + '\n<tr><td style="padding:0;"><a href="%s" target="_blank" style="display:block;text-decoration:none;color:inherit;">'
+              '<table role="presentation" width="100%%" cellpadding="0" cellspacing="0" border="0">' % ONLINE_URL
+            + body + '</table></a></td></tr>\n' + FOOTER_ROW + foot)
+
+
+email = giant_link(EMAIL)
 write("email.html", email)
 
-brevo = email.replace('href="%s"' % ONLINE_URL, 'href="{{ mirror }}"')
+brevo = email
+view = '<a href="%s" style="color:#B9B8CC;">Voir en ligne</a>' % ONLINE_URL
+assert brevo.count(view) == 1, "lien voir en ligne introuvable"
+brevo = brevo.replace(view, '<a href="{{ mirror }}" style="color:#B9B8CC;">Voir en ligne</a>')
 unsub = '<a href="mailto:%s" style="color:#B9B8CC;">Se désabonner</a>' % WERO_EMAIL
 assert brevo.count(unsub) == 1, "lien de desabonnement introuvable"
 brevo = brevo.replace(unsub, '<a href="{{ unsubscribe }}" style="color:#B9B8CC;">Se désabonner</a>')
@@ -475,6 +500,22 @@ SITE_JS = """<style>
 .amt-btn.selected{background:#E94E1B !important;border-color:#E94E1B !important;color:#FFFFFF !important}
 .amt-btn.selected span{color:#FFFFFF !important}
 #amt-libre.selected{background:#E94E1B !important;border-color:#E94E1B !important}
+@media (max-width:820px){
+[style*="max-width: 1200px"]{padding-left:18px !important;padding-right:18px !important}
+[style*="grid-template-columns: repeat(12"],[style*="grid-template-columns: repeat(3"],[style*="gap: 24px"][style*="repeat(2"]{grid-template-columns:minmax(0,1fr) !important}
+[style*="grid-column: span"]{grid-column:auto !important}
+[style*="repeat(12"]{padding:16px !important;gap:18px !important}
+h1{font-size:clamp(44px,15vw,72px) !important;word-break:break-word}
+[style*="text-align: right"]{text-align:left !important}
+img,svg{max-width:100%}
+[style*="max-width: 360px"]{max-width:100% !important;white-space:normal !important}
+html,body{overflow-x:hidden}
+[style*="align-items: flex-end"][style*="border-bottom: 3px"]{flex-wrap:wrap !important;gap:12px !important}
+[style*="align-items: flex-end"][style*="border-bottom: 3px"]>*{max-width:100% !important;min-width:0}
+h2{font-size:clamp(28px,8.5vw,40px) !important;line-height:1.05 !important}
+[style*="font-size: 96px"]{font-size:60px !important}
+}
+@media (max-width:820px){[style*="padding: 44px"]{padding:24px !important}}
 </style>
 <script>
 function copyWero() {

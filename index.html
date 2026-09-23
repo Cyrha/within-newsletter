@@ -412,6 +412,22 @@ a{color:#433F80}a:hover{color:#E94E1B}
 .amt-btn.selected{background:#E94E1B !important;border-color:#E94E1B !important;color:#FFFFFF !important}
 .amt-btn.selected span{color:#FFFFFF !important}
 #amt-libre.selected{background:#E94E1B !important;border-color:#E94E1B !important}
+@media (max-width:820px){
+[style*="max-width: 1200px"]{padding-left:18px !important;padding-right:18px !important}
+[style*="grid-template-columns: repeat(12"],[style*="grid-template-columns: repeat(3"],[style*="gap: 24px"][style*="repeat(2"]{grid-template-columns:minmax(0,1fr) !important}
+[style*="grid-column: span"]{grid-column:auto !important}
+[style*="repeat(12"]{padding:16px !important;gap:18px !important}
+h1{font-size:clamp(44px,15vw,72px) !important;word-break:break-word}
+[style*="text-align: right"]{text-align:left !important}
+img,svg{max-width:100%}
+[style*="max-width: 360px"]{max-width:100% !important;white-space:normal !important}
+html,body{overflow-x:hidden}
+[style*="align-items: flex-end"][style*="border-bottom: 3px"]{flex-wrap:wrap !important;gap:12px !important}
+[style*="align-items: flex-end"][style*="border-bottom: 3px"]>*{max-width:100% !important;min-width:0}
+h2{font-size:clamp(28px,8.5vw,40px) !important;line-height:1.05 !important}
+[style*="font-size: 96px"]{font-size:60px !important}
+}
+@media (max-width:820px){[style*="padding: 44px"]{padding:24px !important}}
 </style>
 <script>
 function copyWero() {
