@@ -54,7 +54,11 @@ BASE = "https://cyrha.github.io/within-newsletter"
 def img(bid, w=None):
     return f"{BASE}/assets/{bid}{EXT.get(bid, '.jpg')}"
 
-SUBSCRIBE_URL = "https://form.jotform.com/262652969645069"
+SUBSCRIBE_URL = "https://c53825e2.sibforms.com/serve/MUIFAEfMT-oAzjmi9uOSnyNw58qDcYTohAX7Z2cU2_lD44klw9Z_WdcKo7lH83sRHrxj4tjr_ua9NFxzn4d5OvYoEXIbkSctdrAQImX4RxZrhcuqJkHvFWEuVtalINruvTzUx9GbLT72jyUU_2UR3hQoJFkA99zFU7R7CdGlDZyrJfXADLp1iyVvp_X38196ljpr6lItjZT5SlWaMQ=="
+# ancien lien Jotform encore present dans la source de l'artefact ; remplace a la generation du site
+JOTFORM_OLD = "https://form.jotform.com/262652969645069"
+OLD_QR_ASSET = "assets/8d07edb1ce01d283056efc3c78ac2b4a.png"   # QR de l'ancien lien Jotform
+QR_ASSET = "assets/qr-abonnement.png"
 ONLINE_URL = "https://cyrha.github.io/within-newsletter/"
 WERO_EMAIL = "cyril.hamel@within.fr"
 
@@ -398,6 +402,15 @@ write("brevo.html", brevo)
 
 
 # ---------------------------------------------------------------- site (GitHub Pages)
+def make_qr():
+    """QR code of the subscription form -> assets/qr-abonnement.png (needs: pip install segno)."""
+    try:
+        import segno
+    except ImportError:
+        sys.exit("Module manquant pour le QR code : pip3 install --user segno")
+    segno.make(SUBSCRIBE_URL, error="m").save(os.path.join(ROOT, QR_ASSET), kind="png", scale=8, border=2)
+
+
 def build_site():
     with open(SRC_HTML, encoding="utf-8") as f:
         html = f.read()
@@ -406,6 +419,9 @@ def build_site():
     m = re.search(r"<helmet>(.*?)</helmet>", html, re.S)
     html = html.replace(m.group(0), "").replace("</head>", m.group(1) + "</head>")
     html = html.replace("<x-dc>\n", "").replace("</x-dc>", "")
+    html = html.replace(JOTFORM_OLD, SUBSCRIBE_URL)
+    html = html.replace(OLD_QR_ASSET, QR_ASSET)
+    make_qr()
     html = re.sub(r'<script type="text/x-dc".*?</script>\n?', "", html, flags=re.S)
 
     pill = ('style="text-decoration: none; color: #17162E; background: transparent; border: 1px solid #E3E2EA; '
