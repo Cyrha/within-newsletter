@@ -408,7 +408,13 @@ def make_qr():
         import segno
     except ImportError:
         sys.exit("Module manquant pour le QR code : pip3 install --user segno")
-    segno.make(SUBSCRIBE_URL, error="m").save(os.path.join(ROOT, QR_ASSET), kind="png", scale=8, border=2)
+    # URL courte (page de redirection) : un QR de l'URL complete du formulaire est trop dense pour etre scanne a 72 px
+    os.makedirs(os.path.join(ROOT, "s"), exist_ok=True)
+    with open(os.path.join(ROOT, "s", "index.html"), "w", encoding="utf-8") as f:
+        f.write('<!doctype html><meta charset="utf-8"><meta name="robots" content="noindex">'
+                '<meta http-equiv="refresh" content="0;url=%s"><title>Abonnement</title>'
+                '<a href="%s">Je m\'abonne</a><script>location.replace(%s)</script>\n' % (SUBSCRIBE_URL, SUBSCRIBE_URL, json.dumps(SUBSCRIBE_URL)))
+    segno.make(ONLINE_URL + "s/", error="m").save(os.path.join(ROOT, QR_ASSET), kind="png", scale=10, border=2)
 
 
 def build_site():
@@ -421,6 +427,7 @@ def build_site():
     html = html.replace("<x-dc>\n", "").replace("</x-dc>", "")
     html = html.replace(JOTFORM_OLD, SUBSCRIBE_URL)
     html = html.replace(OLD_QR_ASSET, QR_ASSET)
+    html = html.replace('alt="QR code abonnement" style="width: 72px; height: 72px;', 'alt="QR code abonnement" style="width: 104px; height: 104px;')
     make_qr()
     html = re.sub(r'<script type="text/x-dc".*?</script>\n?', "", html, flags=re.S)
 
