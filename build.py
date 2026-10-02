@@ -426,7 +426,7 @@ def giant_link(h):
     return (top + CONTAINER_OPEN
             + '\n<tr><td style="padding:0;"><a href="%s" target="_blank" style="display:block;text-decoration:none;color:inherit;">'
               '<table role="presentation" width="100%%" cellpadding="0" cellspacing="0" border="0">' % ONLINE_URL
-            + body + '</table></a></td></tr>\n' + KLING_ROW + FOOTER_ROW + foot)
+            + body + '</table></a></td></tr>\n' + FOOTER_ROW + foot)
 
 
 email = giant_link(EMAIL)
