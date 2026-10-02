@@ -281,9 +281,11 @@ EMAIL = f'''<!doctype html>
 <tr><td bgcolor="#ffffff" class="px" style="background:#ffffff;border-bottom:1px solid {BORDER};padding:26px 24px 30px;">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr>
 <td>
-<span style="font-family:Outfit,Arial,sans-serif;font-weight:900;font-size:20px;color:{ACCENT};">WITHIN</span>
-<span style="display:inline-block;width:1px;height:16px;background:{BORDER};margin:0 10px;"></span>
-<span style="font-family:Outfit,Arial,sans-serif;font-weight:700;font-size:16px;color:{DARK};">Histoires de vies</span>
+<table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr>
+<td valign="middle" style="padding:0;"><img src="{BASE}/assets/within-logo.png" width="92" height="40" alt="WITHIN" style="display:block;width:92px;height:40px;border:0;"></td>
+<td valign="middle" style="padding:0 18px;"><div style="width:1px;height:34px;background:{BORDER};line-height:34px;font-size:0;">&nbsp;</div></td>
+<td valign="middle" style="padding:0;"><img src="{BASE}/assets/4b86cb913c94e39f0b7b3cd8eee17408.png" width="107" height="40" alt="Histoires de vies" style="display:block;width:107px;height:40px;border:0;"></td>
+</tr></table>
 </td>
 </tr></table>
 <div class="h1" style="font-family:Outfit,Arial,sans-serif;font-weight:900;font-size:60px;line-height:0.95;letter-spacing:-0.02em;color:{DARK};margin-top:18px;border-top:3px solid {DARK};padding-top:18px;">
