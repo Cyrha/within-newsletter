@@ -205,7 +205,7 @@ def rubrique_section(sec_id):
 '''
 
 SOMMAIRE_CARDS = [
-    ("01", "Possibilités visuelles", "5 outils →", "#2E2160", "#5A47A6"),
+    ("01", "Possibilités visuelles", "6 outils →", "#2E2160", "#5A47A6"),
     ("02", "Possibilités techniques", "3 outils + AI Act →", "#22406F", "#4583B8"),
     ("03", "Plugins &amp; scripts", "5 outils →", "#16606B", "#3BB8C4"),
 ]
@@ -222,7 +222,7 @@ for num, title, sub, c1, c2 in SOMMAIRE_CARDS:
 </table>
 </td>'''
 
-hero_thumbs = [DATA['visuel'][0]['imgs'][0], DATA['technique'][0]['imgs'][0], DATA['plugins'][0]['imgs'][0], DATA['visuel'][1]['imgs'][0]]
+hero_thumbs = [DATA['visuel'][0]['imgs'][0], DATA['technique'][0]['imgs'][0], DATA['plugins'][0]['imgs'][0], next(it['imgs'][0] for it in DATA['visuel'][1:] if it['imgs'])]
 hero_grid = ""
 for i in range(0, 4, 2):
     hero_grid += '<tr>'
@@ -264,7 +264,7 @@ EMAIL = f'''<!doctype html>
 </style>
 </head>
 <body style="margin:0;padding:0;background:{BG};">
-<div style="display:none;max-height:0;overflow:hidden;opacity:0;">Spécial IA · vidéo, image &amp; marketing — 14 outils, veille juillet → septembre 2026.&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;</div>
+<div style="display:none;max-height:0;overflow:hidden;opacity:0;">Spécial IA · vidéo, image &amp; marketing — 15 outils, veille juillet → septembre 2026.&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;</div>
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="{BG}" style="background:{BG};">
 <tr><td align="center" style="padding:0;">
 
@@ -298,7 +298,7 @@ Private <span style="color:{ACCENT};">Newsletter</span>
 <tr><td class="pad" style="padding:32px;font-family:Outfit,Arial,sans-serif;">
 <div style="font-family:Oswald,Arial,sans-serif;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;font-size:12px;color:#D7F3F6;">À la une</div>
 <div style="font-weight:800;font-size:28px;line-height:1.15;color:#ffffff;margin:10px 0 10px;">L'IA ne génère plus seulement des images : elle transforme nos rushes.</div>
-<div style="font-size:15px;line-height:1.5;color:#E4F4F7;margin-bottom:16px;">14 outils, 2 exemples vidéo chacun. Cliquez sur une vignette pour voir la démo.</div>
+<div style="font-size:15px;line-height:1.5;color:#E4F4F7;margin-bottom:16px;">15 outils avec leurs démos vidéo. Cliquez sur une vignette pour voir la démo.</div>
 <table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr><td bgcolor="{ACCENT}" style="background:{ACCENT};border-radius:999px;">
 <a href="{ONLINE_URL}" style="display:inline-block;padding:12px 22px;font-family:Outfit,Arial,sans-serif;font-weight:700;font-size:15px;color:#ffffff;text-decoration:none;">Découvrir en ligne ↗</a>
 </td></tr></table>
@@ -400,6 +400,20 @@ FOOTER_ROW = '<tr><td bgcolor="%s" style="background:%s;padding:36px 24px;margin
 CONTAINER_OPEN = '<table role="presentation" class="container" width="640" cellpadding="0" cellspacing="0" border="0" style="width:640px;max-width:640px;">'
 
 
+KLING_VIDEO = "https://www.youtube.com/watch?v=b2jR0rOGEKQ"
+# Le mail entier est un lien geant ; ce bloc est place HORS du lien geant pour que la video Kling reste cliquable.
+KLING_ROW = (
+    '<tr><td class="px" style="padding:28px 24px 0;">'
+    '<table role="presentation" width="100%%" cellpadding="0" cellspacing="0" border="0" bgcolor="#ffffff" '
+    'style="background:#ffffff;border:2px solid %s;border-radius:18px;"><tr><td class="card" style="padding:20px;font-family:Outfit,Arial,sans-serif;">'
+    '<div style="font-family:Oswald,Arial,sans-serif;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;font-size:11px;color:%s;">Nouveau · Kling 4.0</div>'
+    '<div style="font-weight:800;font-size:20px;line-height:1.2;color:%s;margin:8px 0 6px;">SPARE, un court-métrage généré avec Kling 4.0</div>'
+    '<div style="font-size:14px;line-height:1.5;color:%s;margin-bottom:12px;">Démo vidéo de la nouvelle version : clips jusqu\'à 30 s, 10 keyframes, 4K.</div>'
+    '<a href="%s" style="display:inline-block;padding:11px 20px;border-radius:999px;background:%s;color:#ffffff;font-weight:700;font-size:14px;text-decoration:none;font-family:Outfit,Arial,sans-serif;">&#9654; Voir le film ↗</a>'
+    '</td></tr></table></td></tr>\n'
+) % (ACCENT, ACCENT, DARK, TEXT, KLING_VIDEO, ACCENT)
+
+
 def giant_link(h):
     """The whole mail (everything above the footer) is ONE link to the online newsletter."""
     assert h.count(FOOTER_ROW) == 1 and h.count(CONTAINER_OPEN) == 1
@@ -410,7 +424,7 @@ def giant_link(h):
     return (top + CONTAINER_OPEN
             + '\n<tr><td style="padding:0;"><a href="%s" target="_blank" style="display:block;text-decoration:none;color:inherit;">'
               '<table role="presentation" width="100%%" cellpadding="0" cellspacing="0" border="0">' % ONLINE_URL
-            + body + '</table></a></td></tr>\n' + FOOTER_ROW + foot)
+            + body + '</table></a></td></tr>\n' + KLING_ROW + FOOTER_ROW + foot)
 
 
 email = giant_link(EMAIL)
