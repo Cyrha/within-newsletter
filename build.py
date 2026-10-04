@@ -249,10 +249,12 @@ def avenir_block(it):
            f'border-radius:12px;border:0;margin-top:16px;">') if it["imgs"] else ""
     return f'''
 <tr><td class="px sec" style="padding:56px 24px 0;">
+<div style="font-family:Oswald,Arial,sans-serif;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;font-size:12px;color:{MUTED};">Bonus · le futur proche</div>
+<div class="h1" style="font-family:Outfit,Arial,sans-serif;font-weight:900;font-size:58px;line-height:0.95;letter-spacing:-0.03em;color:{ACCENT};margin:6px 0 18px;">Ce qui arrive.</div>
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#2A1E5C" style="background:#2A1E5C;border-radius:20px;">
 <tr><td class="pad" style="padding:30px;font-family:Outfit,Arial,sans-serif;">
 <div style="font-family:Oswald,Arial,sans-serif;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;font-size:12px;color:#FFB08F;">{esc(it["kicker"])}</div>
-<div style="font-weight:800;font-size:26px;line-height:1.1;color:#ffffff;margin:10px 0;">{esc(it["title"])}</div>
+<div style="font-weight:900;font-size:30px;line-height:1.05;color:#ffffff;margin:10px 0;">{esc(it["title"])}</div>
 <div style="font-size:15px;line-height:1.5;color:#E4E2F2;">{esc(it["desc"])}</div>
 {pic}
 </td></tr>

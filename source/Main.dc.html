@@ -20,6 +20,9 @@
 <style>
 body{margin:0;background:#F2F1F6;font-family:"Outfit","Avenir Next","Segoe UI",system-ui,sans-serif;color:#17162E}
 a{color:#433F80}a:hover{color:#E94E1B}
+@keyframes nlspin{to{transform:rotate(360deg)}}
+.nl-spin{animation:nlspin 22s linear infinite}
+@media (prefers-reduced-motion: reduce){.nl-spin{animation:none}}
 </style>
 </helmet>
 <div style="width: 100%; background: #F2F1F6; color: #17162E; font-family: 'Outfit', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;">
@@ -357,18 +360,32 @@ a{color:#433F80}a:hover{color:#E94E1B}
 </section>
 
 
-<section id="avenir" style="max-width: 1200px; margin: 0 auto; padding: 88px 40px 0; display: flex; flex-direction: column; gap: 24px;">
-<article style="border-radius: 28px; background: linear-gradient(120deg, #17162E 0%, #2A1E5C 55%, #3A2A70 100%); color: #FFFFFF; padding: 40px; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 32px; align-items: center;">
+<section id="avenir" style="max-width: 1200px; margin: 0 auto; padding: 110px 40px 0; display: flex; flex-direction: column; gap: 28px;">
+<div style="position: relative; display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap;">
+<div style="display: flex; flex-direction: column; gap: 6px;">
+<span style="font-family: 'Oswald', sans-serif; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; font-size: 14px; color: #5A5970;">Bonus · le futur proche</span>
+<h2 style="margin: 0; font-weight: 900; font-size: clamp(64px, 11vw, 148px); line-height: 0.86; letter-spacing: -0.045em; background: linear-gradient(95deg, #E94E1B 0%, #D2407A 45%, #5B3FB8 100%); -webkit-background-clip: text; background-clip: text; color: transparent; padding-bottom: 0.08em;">Ce qui<br>arrive.</h2>
+<svg viewBox="0 0 520 40" style="width: min(520px, 70vw); height: auto; display: block; margin-top: 4px;" aria-hidden="true"><path d="M4 30 C 120 4, 260 4, 516 22" fill="none" stroke="#E94E1B" stroke-width="7" stroke-linecap="round"></path></svg>
+</div>
+<svg class="nl-spin" viewBox="0 0 200 200" style="width: 210px; height: 210px; display: block; flex-shrink: 0;" role="img" aria-label="Bientôt dans nos prods">
+<defs><path id="nlArc" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0"></path></defs>
+<circle cx="100" cy="100" r="98" fill="#17162E"></circle>
+<text style="font-family: 'Oswald', sans-serif; font-weight: 500; font-size: 16px; text-transform: uppercase;" fill="#FFFFFF"><textPath href="#nlArc" textLength="484" lengthAdjust="spacing">Bientôt dans nos prods ✦ Bientôt dans nos prods ✦</textPath></text>
+<circle cx="100" cy="100" r="50" fill="#E94E1B"></circle>
+<text x="100" y="112" text-anchor="middle" style="font-family: 'Outfit', sans-serif; font-weight: 900; font-size: 34px;" fill="#FFFFFF">48 %</text>
+</svg>
+</div>
+<article style="border-radius: 32px; background: linear-gradient(120deg, #17162E 0%, #2A1E5C 55%, #3A2A70 100%); color: #FFFFFF; padding: 44px; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 32px; align-items: center; box-shadow: 0 30px 60px -30px rgba(42,30,92,0.7);">
 <div style="grid-column: span 5; display: flex; flex-direction: column; gap: 16px;">
-<span style="font-family: 'Oswald', sans-serif; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; font-size: 13px; color: #FFB08F;">Ce qui arrive · 1er oct. 2026</span>
-<h3 style="margin: 0; font-weight: 800; font-size: 40px; line-height: 1.05; letter-spacing: -0.02em;">Tavus Griffin : 48 % l'ont pris pour un humain.</h3>
+<span style="font-family: 'Oswald', sans-serif; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; font-size: 13px; color: #FFB08F;">Tavus Griffin · 1er oct. 2026</span>
+<h3 style="margin: 0; font-weight: 900; font-size: 50px; line-height: 1; letter-spacing: -0.03em;">48 % l'ont pris pour un humain.</h3>
 <p style="margin: 0; font-size: 17px; line-height: 1.55; color: #E4E2F2;">Un humain de synthèse en appel vidéo, généré à partir d'une seule photo : il écoute, choisit quand répondre et parle en temps réel. Sur un appel d'une minute, 48 % des testeurs l'ont pris pour une vraie personne, contre 2,4 % pour la version précédente. Réservé à quelques testeurs pour l'instant.</p>
 <a href="https://aiweekly.co/ai-news-today" target="_blank" rel="noopener" style="align-self: flex-start; font-size: 14px; font-weight: 600; padding: 8px 14px; border-radius: 999px; background: #FFFFFF; color: #17162E; text-decoration: none;">AI Weekly ↗</a>
 </div>
 <div style="grid-column: span 7; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px;"><a href="https://www.youtube.com/watch?v=_ZZrSujMl-E" target="_blank" rel="noopener" style="text-decoration: none; color: #FFFFFF; aspect-ratio: 16 / 9; max-width: 100%; border-radius: 16px; background: linear-gradient(135deg, #17162E 0%, #3A2A70 100%); position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden;">
 <img src="/_blob/24ba5f59c5282d9b12559e4817d1ce57" alt="" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; display: block;"><span style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(180deg, rgba(10,8,30,0) 45%, rgba(10,8,30,0.88) 100%);"></span>
 <svg viewBox="0 0 64 64" style="width: 52px; height: 52px; display: block; position: relative;" aria-hidden="true"><circle cx="32" cy="32" r="31" fill="#FFFFFF" fill-opacity="0.94"></circle><polygon points="26,20 46,32 26,44" fill="#E94E1B"></polygon></svg>
-<span style="position: absolute; left: 14px; right: 14px; bottom: 12px; display: flex; flex-direction: column; gap: 3px;"><span style="font-family: 'Oswald', sans-serif; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; font-size: 10px; color: #FFFFFF; opacity: 0.9;">Exemple 1 · YouTube</span><span style="font-size: 13px; font-weight: 600; line-height: 1.3; color: #FFFFFF;">Griffin : la première IA à passer le test de Turing vidéo</span></span>
+<span style="position: absolute; left: 14px; right: 14px; bottom: 12px; display: flex; flex-direction: column; gap: 3px;"><span style="font-family: 'Oswald', sans-serif; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; font-size: 10px; color: #FFFFFF; opacity: 0.9;">Exemple 1 · YouTube · 48 k vues</span><span style="font-size: 13px; font-weight: 600; line-height: 1.3; color: #FFFFFF;">Griffin : la première IA à passer le test de Turing vidéo</span></span>
 </a><a href="https://www.youtube.com/watch?v=VcQcRRHJTyc" target="_blank" rel="noopener" style="text-decoration: none; color: #FFFFFF; aspect-ratio: 16 / 9; max-width: 100%; border-radius: 16px; background: linear-gradient(135deg, #17162E 0%, #3A2A70 100%); position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden;">
 <img src="/_blob/3e552d35e8465456b0891bf6b01a4e45" alt="" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; display: block;"><span style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(180deg, rgba(10,8,30,0) 45%, rgba(10,8,30,0.88) 100%);"></span>
 <svg viewBox="0 0 64 64" style="width: 52px; height: 52px; display: block; position: relative;" aria-hidden="true"><circle cx="32" cy="32" r="31" fill="#FFFFFF" fill-opacity="0.94"></circle><polygon points="26,20 46,32 26,44" fill="#E94E1B"></polygon></svg>
