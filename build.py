@@ -45,8 +45,26 @@ def extract_articles(path):
 
 
 DATA = extract_articles(SRC_HTML)
+
+
+def extract_avenir(path):
+    """Optional 'Ce qui arrive' teaser: <section id="avenir"> with one <article>."""
+    html = open(path, encoding="utf-8").read()
+    m = re.search(r'<section id="avenir".*?</section>', html, re.S)
+    if not m:
+        return None
+    a = m.group(0)
+    return {
+        "kicker": _clean(re.search(r'color: #FFB08F;">([^<]+)</span>', a).group(1)),
+        "title": _clean(re.search(r"<h3(?:\s[^>]*)?>(.*?)</h3>", a, re.S).group(1)),
+        "desc": _clean(re.search(r"<p(?:\s[^>]*)?>(.*?)</p>", a, re.S).group(1)),
+        "imgs": re.findall(r'src="/_blob/([0-9a-f]{32})"', a),
+    }
+
+
+AVENIR = extract_avenir(SRC_HTML)
 EXT = {os.path.splitext(fn)[0]: os.path.splitext(fn)[1] for fn in os.listdir(ASSETS_DIR)}
-missing = sorted({i for sec in DATA.values() for it in sec for i in it["imgs"] if i not in EXT})
+missing = sorted({i for sec in DATA.values() for it in sec for i in it["imgs"] if i not in EXT} | {i for i in (AVENIR or {}).get("imgs", []) if i not in EXT})
 if missing:
     sys.exit("Images manquantes dans assets/ : " + ", ".join(missing))
 BASE = "https://cyrha.github.io/within-newsletter"
@@ -57,6 +75,8 @@ def img(bid, w=None):
 SUBSCRIBE_URL = "https://c53825e2.sibforms.com/serve/MUIFAEfMT-oAzjmi9uOSnyNw58qDcYTohAX7Z2cU2_lD44klw9Z_WdcKo7lH83sRHrxj4tjr_ua9NFxzn4d5OvYoEXIbkSctdrAQImX4RxZrhcuqJkHvFWEuVtalINruvTzUx9GbLT72jyUU_2UR3hQoJFkA99zFU7R7CdGlDZyrJfXADLp1iyVvp_X38196ljpr6lItjZT5SlWaMQ=="
 # ancien lien Jotform encore present dans la source de l'artefact ; remplace a la generation du site
 JOTFORM_OLD = "https://form.jotform.com/262652969645069"
+# lien provisoire laisse dans l'artefact ; remplace par SUBSCRIBE_URL a la generation du site
+FORM_PLACEHOLDER = "https://BREVO-FORM-URL-A-REMPLACER"
 OLD_QR_ASSET = "assets/8d07edb1ce01d283056efc3c78ac2b4a.png"   # QR de l'ancien lien Jotform
 QR_ASSET = "assets/qr-abonnement.png"
 ONLINE_URL = "https://cyrha.github.io/within-newsletter/"
@@ -73,9 +93,9 @@ CREAM = "#F5F5F8"
 
 RUBRIQUE_COLORS = {"visuel": "#433F80", "technique": "#3F6FA0", "plugins": "#2E9DAA"}
 RUBRIQUE_TITLES = {
-    "visuel": ("01", "Possibilités visuelles", "Transformer du vrai tournage, générer des plans premium."),
-    "technique": ("02", "Possibilités techniques", "Nos logiciels se pilotent en langage naturel."),
-    "plugins": ("03", "Plugins &amp; scripts", "Les nouveautés à installer dans nos suites."),
+    "visuel": ("01", "À l'écran", "Image, vidéo et voix : transformer le tournage, générer le reste."),
+    "technique": ("02", "En coulisses", "L'IA pilote nos logiciels, monte et anime."),
+    "plugins": ("03", "La boîte à outils", "Les nouveautés à installer dans nos suites."),
 }
 
 def esc(s):
@@ -205,9 +225,9 @@ def rubrique_section(sec_id):
 '''
 
 SOMMAIRE_CARDS = [
-    ("01", "Possibilités visuelles", "6 outils →", "#2E2160", "#5A47A6"),
-    ("02", "Possibilités techniques", "3 outils + AI Act →", "#22406F", "#4583B8"),
-    ("03", "Plugins &amp; scripts", "5 outils →", "#16606B", "#3BB8C4"),
+    ("01", "À l'écran", "6 outils →", "#2E2160", "#5A47A6"),
+    ("02", "En coulisses", "3 outils + AI Act →", "#22406F", "#4583B8"),
+    ("03", "La boîte à outils", "4 outils →", "#16606B", "#3BB8C4"),
 ]
 sommaire_cells = ""
 for num, title, sub, c1, c2 in SOMMAIRE_CARDS:
@@ -221,6 +241,25 @@ for num, title, sub, c1, c2 in SOMMAIRE_CARDS:
 </td></tr>
 </table>
 </td>'''
+
+def avenir_block(it):
+    if not it:
+        return ""
+    pic = (f'<img src="{img(it["imgs"][0])}" width="100%" alt="" style="display:block;width:100%;height:auto;'
+           f'border-radius:12px;border:0;margin-top:16px;">') if it["imgs"] else ""
+    return f'''
+<tr><td class="px sec" style="padding:56px 24px 0;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#2A1E5C" style="background:#2A1E5C;border-radius:20px;">
+<tr><td class="pad" style="padding:30px;font-family:Outfit,Arial,sans-serif;">
+<div style="font-family:Oswald,Arial,sans-serif;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;font-size:12px;color:#FFB08F;">{esc(it["kicker"])}</div>
+<div style="font-weight:800;font-size:26px;line-height:1.1;color:#ffffff;margin:10px 0;">{esc(it["title"])}</div>
+<div style="font-size:15px;line-height:1.5;color:#E4E2F2;">{esc(it["desc"])}</div>
+{pic}
+</td></tr>
+</table>
+</td></tr>
+'''
+
 
 hero_thumbs = [DATA['visuel'][0]['imgs'][0], DATA['technique'][0]['imgs'][0], DATA['plugins'][0]['imgs'][0], next(it['imgs'][0] for it in DATA['visuel'][1:] if it['imgs'])]
 hero_grid = ""
@@ -264,7 +303,7 @@ EMAIL = f'''<!doctype html>
 </style>
 </head>
 <body style="margin:0;padding:0;background:{BG};">
-<div style="display:none;max-height:0;overflow:hidden;opacity:0;">Spécial IA · vidéo, image &amp; marketing — 15 outils, veille juillet → septembre 2026.&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;</div>
+<div style="display:none;max-height:0;overflow:hidden;opacity:0;">Spécial IA · vidéo, image &amp; marketing — 13 outils + un aperçu, veille juillet → début octobre 2026.&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;</div>
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="{BG}" style="background:{BG};">
 <tr><td align="center" style="padding:0;">
 
@@ -292,7 +331,7 @@ EMAIL = f'''<!doctype html>
 Private <span style="color:{ACCENT};">Newsletter</span>
 </div>
 <div style="font-family:Oswald,Arial,sans-serif;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;font-size:13px;color:{ACCENT};margin-top:12px;">Spécial IA · Vidéo, image &amp; marketing</div>
-<div style="font-family:Outfit,Arial,sans-serif;font-size:15px;color:{MUTED};margin-top:4px;">Veille juillet → septembre 2026</div>
+<div style="font-family:Outfit,Arial,sans-serif;font-size:15px;color:{MUTED};margin-top:4px;">Veille juillet → début octobre 2026</div>
 </td></tr>
 
 <tr><td class="px" style="padding:32px 24px 0;">
@@ -300,7 +339,7 @@ Private <span style="color:{ACCENT};">Newsletter</span>
 <tr><td class="pad" style="padding:32px;font-family:Outfit,Arial,sans-serif;">
 <div style="font-family:Oswald,Arial,sans-serif;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;font-size:12px;color:#D7F3F6;">À la une</div>
 <div style="font-weight:800;font-size:28px;line-height:1.15;color:#ffffff;margin:10px 0 10px;">L'IA ne génère plus seulement des images : elle transforme nos rushes.</div>
-<div style="font-size:15px;line-height:1.5;color:#E4F4F7;margin-bottom:16px;">15 outils avec leurs démos vidéo. Cliquez sur une vignette pour voir la démo.</div>
+<div style="font-size:15px;line-height:1.5;color:#E4F4F7;margin-bottom:16px;">13 outils et un aperçu de ce qui arrive, avec leurs démos vidéo.</div>
 <table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr><td bgcolor="{ACCENT}" style="background:{ACCENT};border-radius:999px;">
 <a href="{ONLINE_URL}" style="display:inline-block;padding:12px 22px;font-family:Outfit,Arial,sans-serif;font-weight:700;font-size:15px;color:#ffffff;text-decoration:none;">Découvrir en ligne ↗</a>
 </td></tr></table>
@@ -321,6 +360,7 @@ Private <span style="color:{ACCENT};">Newsletter</span>
 {rubrique_section('visuel')}
 {rubrique_section('technique')}
 {rubrique_section('plugins')}
+{avenir_block(AVENIR)}
 </table>
 </td></tr>
 
@@ -352,7 +392,7 @@ Private <span style="color:{ACCENT};">Newsletter</span>
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr>
 <td>
 <div style="font-family:Outfit,Arial,sans-serif;font-weight:900;font-size:22px;color:#ffffff;">Private <span style="color:#3BB8C4;">Newsletter</span> <span style="color:{ACCENT};">N°01</span></div>
-<div style="font-family:Outfit,Arial,sans-serif;font-size:13px;color:#B9B8CC;margin-top:6px;">Cyril Hamel · Présentation du 9 octobre 2026 · Veille arrêtée au 23 septembre 2026</div>
+<div style="font-family:Outfit,Arial,sans-serif;font-size:13px;color:#B9B8CC;margin-top:6px;">Cyril Hamel · Présentation du 9 octobre 2026 · Veille arrêtée au 4 octobre 2026</div>
 <div style="font-family:Outfit,Arial,sans-serif;font-size:12px;color:#8886A3;margin-top:14px;">Vous recevez cet e-mail car vous êtes abonné·e à la Private Newsletter WITHIN × Histoires de vies.<br>
 <a href="{ONLINE_URL}" style="color:#B9B8CC;">Voir en ligne</a> · <a href="mailto:{WERO_EMAIL}" style="color:#B9B8CC;">Se désabonner</a></div>
 </td>
@@ -402,18 +442,6 @@ FOOTER_ROW = '<tr><td bgcolor="%s" style="background:%s;padding:36px 24px;margin
 CONTAINER_OPEN = '<table role="presentation" class="container" width="640" cellpadding="0" cellspacing="0" border="0" style="width:640px;max-width:640px;">'
 
 
-KLING_VIDEO = "https://www.youtube.com/watch?v=b2jR0rOGEKQ"
-# Le mail entier est un lien geant ; ce bloc est place HORS du lien geant pour que la video Kling reste cliquable.
-KLING_ROW = (
-    '<tr><td class="px" style="padding:28px 24px 0;">'
-    '<table role="presentation" width="100%%" cellpadding="0" cellspacing="0" border="0" bgcolor="#ffffff" '
-    'style="background:#ffffff;border:2px solid %s;border-radius:18px;"><tr><td class="card" style="padding:20px;font-family:Outfit,Arial,sans-serif;">'
-    '<div style="font-family:Oswald,Arial,sans-serif;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;font-size:11px;color:%s;">Nouveau · Kling 4.0</div>'
-    '<div style="font-weight:800;font-size:20px;line-height:1.2;color:%s;margin:8px 0 6px;">SPARE, un court-métrage généré avec Kling 4.0</div>'
-    '<div style="font-size:14px;line-height:1.5;color:%s;margin-bottom:12px;">Démo vidéo de la nouvelle version : clips jusqu\'à 30 s, 10 keyframes, 4K.</div>'
-    '<a href="%s" style="display:inline-block;padding:11px 20px;border-radius:999px;background:%s;color:#ffffff;font-weight:700;font-size:14px;text-decoration:none;font-family:Outfit,Arial,sans-serif;">&#9654; Voir le film ↗</a>'
-    '</td></tr></table></td></tr>\n'
-) % (ACCENT, ACCENT, DARK, TEXT, KLING_VIDEO, ACCENT)
 
 
 def giant_link(h):
@@ -466,7 +494,7 @@ def build_site():
     m = re.search(r"<helmet>(.*?)</helmet>", html, re.S)
     html = html.replace(m.group(0), "").replace("</head>", m.group(1) + "</head>")
     html = html.replace("<x-dc>\n", "").replace("</x-dc>", "")
-    html = html.replace(JOTFORM_OLD, SUBSCRIBE_URL)
+    html = html.replace(JOTFORM_OLD, SUBSCRIBE_URL).replace(FORM_PLACEHOLDER, SUBSCRIBE_URL)
     html = html.replace(OLD_QR_ASSET, QR_ASSET)
     html = html.replace('alt="QR code abonnement" style="width: 72px; height: 72px;', 'alt="QR code abonnement" style="width: 104px; height: 104px;')
     make_qr()
@@ -474,7 +502,7 @@ def build_site():
 
     pill = ('style="text-decoration: none; color: #17162E; background: transparent; border: 1px solid #E3E2EA; '
             'border-radius: 999px; padding: 8px 16px; font-weight: 600; font-size: 15px;"')
-    for i, (anchor, label) in enumerate((("visuel", "01 Visuel"), ("technique", "02 Technique"), ("plugins", "03 Plugins")), 1):
+    for i, (anchor, label) in enumerate((("visuel", "01 À l'écran"), ("technique", "02 En coulisses"), ("plugins", "03 Boîte à outils")), 1):
         old = ('<a href="#%s" style="text-decoration: none; color: {{ navColor%d }}; background: {{ navBg%d }}; '
                'border: 1px solid {{ navBorder%d }}; border-radius: 999px; padding: 8px 16px; font-weight: 600; '
                'font-size: 15px;">%s</a>') % (anchor, i, i, i, label)
@@ -507,7 +535,7 @@ def build_site():
                              'Choisissez un montant ci-dessus, puis Wero → envoyer → coller l’adresse ci-dessus.</span>')
 
     html = html.replace("</body>", SITE_JS + "</body>")
-    assert "{{" not in html and "_blob" not in html, "placeholders restants"
+    assert "{{" not in html and "_blob" not in html and FORM_PLACEHOLDER not in html, "placeholders restants"
     return html
 
 
