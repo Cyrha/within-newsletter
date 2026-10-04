@@ -226,7 +226,7 @@ def rubrique_section(sec_id):
 
 SOMMAIRE_CARDS = [
     ("01", "À l'écran", "6 outils →", "#2E2160", "#5A47A6"),
-    ("02", "En coulisses", "2 outils + AI Act →", "#22406F", "#4583B8"),
+    ("02", "En coulisses", "3 outils + AI Act →", "#22406F", "#4583B8"),
     ("03", "La boîte à outils", "4 outils →", "#16606B", "#3BB8C4"),
 ]
 sommaire_cells = ""
@@ -303,7 +303,7 @@ EMAIL = f'''<!doctype html>
 </style>
 </head>
 <body style="margin:0;padding:0;background:{BG};">
-<div style="display:none;max-height:0;overflow:hidden;opacity:0;">Spécial IA · vidéo, image &amp; marketing — 12 outils + un aperçu, veille juillet → début octobre 2026.&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;</div>
+<div style="display:none;max-height:0;overflow:hidden;opacity:0;">Spécial IA · vidéo, image &amp; marketing — 13 outils + un aperçu, veille juillet → début octobre 2026.&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;</div>
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="{BG}" style="background:{BG};">
 <tr><td align="center" style="padding:0;">
 
@@ -339,7 +339,7 @@ Private <span style="color:{ACCENT};">Newsletter</span>
 <tr><td class="pad" style="padding:32px;font-family:Outfit,Arial,sans-serif;">
 <div style="font-family:Oswald,Arial,sans-serif;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;font-size:12px;color:#D7F3F6;">À la une</div>
 <div style="font-weight:800;font-size:28px;line-height:1.15;color:#ffffff;margin:10px 0 10px;">L'IA ne génère plus seulement des images : elle transforme nos rushes.</div>
-<div style="font-size:15px;line-height:1.5;color:#E4F4F7;margin-bottom:16px;">12 outils et un aperçu de ce qui arrive, avec leurs démos vidéo.</div>
+<div style="font-size:15px;line-height:1.5;color:#E4F4F7;margin-bottom:16px;">13 outils et un aperçu de ce qui arrive, avec leurs démos vidéo.</div>
 <table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr><td bgcolor="{ACCENT}" style="background:{ACCENT};border-radius:999px;">
 <a href="{ONLINE_URL}" style="display:inline-block;padding:12px 22px;font-family:Outfit,Arial,sans-serif;font-weight:700;font-size:15px;color:#ffffff;text-decoration:none;">Découvrir en ligne ↗</a>
 </td></tr></table>
